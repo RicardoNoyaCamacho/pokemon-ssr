@@ -22,7 +22,6 @@ export default class PokemonPage implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id)
     if (!id) return;
     this.pokemonService.loadPokemon(id)
       .pipe(
