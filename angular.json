@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "pokmeon-ssr": {
+    "pokemon-ssr": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -24,9 +24,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "styles": ["src/styles.css"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -61,10 +59,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "pokmeon-ssr:build:production"
+              "buildTarget": "pokemon-ssr:build:production"
             },
             "development": {
-              "buildTarget": "pokmeon-ssr:build:development"
+              "buildTarget": "pokemon-ssr:build:development"
             }
           },
           "defaultConfiguration": "development"
