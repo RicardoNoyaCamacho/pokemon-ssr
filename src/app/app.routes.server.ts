@@ -10,25 +10,27 @@ async function fetchPokemonNames(limit: number): Promise<string[]> {
 
 export const serverRoutes: ServerRoute[] = [
   {
-    // Ruta: 'pokemons' (maneja ?page=N)
+    // RUTA: /pokemons?page=N
     path: 'pokemons',
-    // Usamos Prerender para generar el "cascarón" de la página.
-    // La paginación (?page=N) deberá ser manejada en el cliente
-    // o cambiar este modo a RenderMode.Server (SSR) si necesitas SEO en cada página.
+    // Usamos Prerender para generar el cascarón (index.html).
+    // La paginación (?page=N) será manejada por el cliente (navegador)
+    // una vez que cargue el JS, o necesitas RenderMode.Server si quieres SSR real por página.
     renderMode: RenderMode.Prerender,
+    // ELIMINAMOS getPrerenderParams porque no hay variable ":page" en el path.
   },
   {
-    // Ruta: 'pokemon/:id'
+    // RUTA: /pokemon/:id
     path: 'pokemon/:id',
     renderMode: RenderMode.Prerender,
+    // Aquí SÍ usamos getPrerenderParams porque existe ":id" en el path.
     async getPrerenderParams() {
       const names = await fetchPokemonNames(POKEMON_LIMIT);
-      // Aquí sí funciona porque ':id' es parte de la ruta
+      // Asegúrate que tu API de front espere el "name" como ID,
+      // ya que aquí estás devolviendo nombres (ej: "bulbasaur") como id.
       return names.map(name => ({ id: name }));
     },
   },
   {
-    // Fallback para redirecciones
     path: '**',
     renderMode: RenderMode.Prerender,
   },
